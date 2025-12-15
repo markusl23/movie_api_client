@@ -4,7 +4,7 @@ import './index.scss';
 const MovieApiApplication = () => {
   return (
     <div className="movie-api">
-      <div>Good morning</div>
+      <div>Hello!</div>
     </div>
   	);
 };
