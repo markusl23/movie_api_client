@@ -1,0 +1,19 @@
+{
+  "name": "movie_api_client",
+  "version": "1.0.0",
+  "description": "client app for movie api database/backend",
+  "homepage": "https://github.com/markusl23/movie_api_client#readme",
+  "bugs": {
+    "url": "https://github.com/markusl23/movie_api_client/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusl23/movie_api_client.git"
+  },
+  "license": "ISC",
+  "author": "Markus L.",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
