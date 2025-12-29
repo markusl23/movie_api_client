@@ -2,11 +2,7 @@ import { createRoot } from 'react-dom/client';
 import './index.scss';
 
 const MovieApiApplication = () => {
-  return (
-    <div className="movie-api">
-      <div>Hello!</div>
-    </div>
-  	);
+  return <MainView />
 };
 
 const container = document.querySelector('#root');
