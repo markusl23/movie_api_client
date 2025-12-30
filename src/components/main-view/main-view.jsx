@@ -27,8 +27,29 @@ export const MainView = () => {
   }, []);
 
   if (selectedMovie) {
-  	return (
-  	  <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+  	let similarMovies = movies.filter(compareGenres);
+
+    function compareGenres(sameGenreMovie) {
+      if (selectedMovie.genre === sameGenreMovie.genre && selectedMovie.title !== sameGenreMovie.title) {
+        return sameGenreMovie;
+      }
+    }
+
+    return (
+      <>
+  	    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+        <hr />
+        <h2>Similar movies:</h2>
+        {similarMovies.map((movie) => {
+          return <MovieCard
+            key={movie.id}
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+          />
+        })}
+      </>
   	);
   }
 
