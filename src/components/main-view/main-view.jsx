@@ -11,7 +11,7 @@ export const MainView = () => {
     fetch("https://still-depths-22545-dbe8396f909e.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.movies.map((movie) => {
+        const moviesFromApi = data.map((movie) => {
           return {
             id: movie._id,
             title: movie.Title,
