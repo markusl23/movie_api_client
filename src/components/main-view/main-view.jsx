@@ -35,22 +35,34 @@ export const MainView = () => {
       }
     }
 
-    return (
-      <>
-  	    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-        <hr />
-        <h2>Similar movies:</h2>
-        {similarMovies.map((movie) => {
-          return <MovieCard
-            key={movie.id}
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
-            }}
-          />
-        })}
-      </>
-  	);
+    if (similarMovies !== []) {
+
+        return (
+          <>
+      	    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+            <hr />
+            <h2>Similar movies:</h2>
+            {similarMovies.map((movie) => {
+              return <MovieCard
+                key={movie.id}
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  setSelectedMovie(newSelectedMovie);
+                }}
+              />
+            })}
+          </>
+      	);
+    } else {
+      return (
+        <>
+          <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+          <hr />
+          <h2>Similar movies:</h2>
+          <p>No similar movies available in this database</p>
+        </>
+      )
+    }
   }
 
   if (movies.length === 0) {
