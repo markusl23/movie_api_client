@@ -27,42 +27,27 @@ export const MainView = () => {
   }, []);
 
   if (selectedMovie) {
-  	let similarMovies = movies.filter(compareGenres);
+  	let similarMovies = movies.filter((movie) => movie.genre === selectedMovie.genre && movie.id !== selectedMovie.id);
 
-    function compareGenres(sameGenreMovie) {
-      if (selectedMovie.genre === sameGenreMovie.genre && selectedMovie.title !== sameGenreMovie.title) {
-        return sameGenreMovie;
-      }
-    }
+    return (
+      <>
+        <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+        <hr />
+        <h2>Similar movies:</h2>
 
-    if (similarMovies !== []) {
-
-        return (
-          <>
-      	    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-            <hr />
-            <h2>Similar movies:</h2>
-            {similarMovies.map((movie) => {
-              return <MovieCard
-                key={movie.id}
-                movie={movie}
-                onMovieClick={(newSelectedMovie) => {
-                  setSelectedMovie(newSelectedMovie);
-                }}
-              />
-            })}
-          </>
-      	);
-    } else {
-      return (
-        <>
-          <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-          <hr />
-          <h2>Similar movies:</h2>
-          <p>No similar movies available in this database</p>
-        </>
-      )
-    }
+        {similarMovies.length > 0 ? (
+          similarMovies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              onMovieClick={setSelectedMovie}
+            />
+          ))
+        ) : (
+          <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
+        )}
+      </>
+    );
   }
 
   if (movies.length === 0) {
