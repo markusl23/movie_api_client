@@ -12,22 +12,6 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser? storedUser : null);
   const [token, setToken] = useState(storedToken? storedToken : null);
 
-  if (!user) {
-    return (
-      <>
-        <h2>New user registration:</h2>
-        <SignupView />
-        <h2>Existing user login:</h2>
-        <LoginView
-          onLoggedIn={(user, token) => {
-            setUser(user);
-            setToken(token);
-          }}
-        />
-      </>
-    );
-  }
-
   useEffect(() => {
     if (!token) {
       return;
@@ -52,6 +36,22 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       });
   }, [token]);
+
+  if (!user) {
+    return (
+      <>
+        <h2>New user registration:</h2>
+        <SignupView />
+        <h2>Existing user login:</h2>
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}
+        />
+      </>
+    );
+  }
 
   if (selectedMovie) {
   	let similarMovies = movies.filter((movie) => movie.genre === selectedMovie.genre && movie.id !== selectedMovie.id);
