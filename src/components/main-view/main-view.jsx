@@ -37,7 +37,7 @@ export const MainView = () => {
       });
   }, [token]);
 
-  if (!user) {
+  if (!user || !token) {
     return (
       <>
         <h2>New user registration:</h2>
