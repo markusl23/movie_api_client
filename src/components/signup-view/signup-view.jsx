@@ -6,7 +6,31 @@ export const SignupView = () => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
 
-  const handleSubmit = (event) => {};
+  const handleSubmit = (event) => {
+  	event.preventDefault();
+
+  	const data = {
+  	  Username: username,
+  	  Password: password,
+  	  Email: email,
+  	  Birthday: birthday
+  	};
+
+  	fetch("https://still-depths-22545-dbe8396f909e.herokuapp.com/users", {
+  		method: "Post",
+  		body: JSON.stringify(data),
+  		headers: {
+  		  "Content-Type": "application/json"
+  		}
+  	}).then((response) => {
+  	  if (response.ok) {
+  	  	alert("Registration successful");
+  	  	window.location.reload();
+  	  } else {
+  	  	alert("Registration failed");
+  	  }
+  	});
+  };
 
   return (
   	<form onSubmit={handleSubmit)>
