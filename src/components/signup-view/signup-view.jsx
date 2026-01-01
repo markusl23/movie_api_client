@@ -33,7 +33,7 @@ export const SignupView = () => {
   };
 
   return (
-  	<form onSubmit={handleSubmit)>
+  	<form onSubmit={handleSubmit}>
       <label>
       	Username:
       	<input
