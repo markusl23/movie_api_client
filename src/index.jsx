@@ -5,7 +5,9 @@ import './index.scss';
 
 const MovieApiApplication = () => {
   return (
-    <MainView />
+    <Container>
+      <MainView />
+    </Container>
   )
 };
 
