@@ -39,6 +39,15 @@ export const MainView = () => {
       });
   }, [token]);
 
+  const similarMovies =
+    selectedMovie
+    ? movies.filter(
+        (movie) => 
+          movie.genre == selectedMovie.genre &&
+          movie.id !== selectedMovie.id
+      )
+    : [];
+
   return (
     <Row className="justify-content-md-center">
       {!user || !token ? (
