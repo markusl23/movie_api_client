@@ -98,13 +98,14 @@ export const MainView = () => {
             </button>
             {movies.map((movie) => {
               return (
-                <MovieCard
-                  key={movie.id}
-                  movie={movie}
-                  onMovieClick={(newSelectedMovie) => {
-                    setSelectedMovie(newSelectedMovie);
-                  }}
-                />
+                <Col key={movie.id} md={3}>
+                  <MovieCard                    
+                    movie={movie}
+                    onMovieClick={(newSelectedMovie) => {
+                      setSelectedMovie(newSelectedMovie);
+                    }}
+                  />
+                </Col>
               );
             })}
           </>
