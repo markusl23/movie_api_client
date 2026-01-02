@@ -70,7 +70,7 @@ export const MainView = () => {
             {similarMovies.length > 0 ? (
               similarMovies.map((movie) => {
                 return (
-                  <Col key={movie.id} md={3}>
+                  <Col key={movie.id} md={3} className="mb-5">
                     <MovieCard                      
                       movie={movie}
                       onMovieClick={setSelectedMovie}
@@ -98,7 +98,7 @@ export const MainView = () => {
             </button>
             {movies.map((movie) => {
               return (
-                <Col key={movie.id} md={3}>
+                <Col key={movie.id} md={3} className="mb-5">
                   <MovieCard                    
                     movie={movie}
                     onMovieClick={(newSelectedMovie) => {
