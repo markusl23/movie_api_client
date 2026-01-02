@@ -89,8 +89,8 @@ export const MainView = () => {
           <div>The movies list is empty!</div>
         ) : (
           <>
-            <Row>
-              <Col xs="auto" className="mb-3">
+            <Row className="mb-3">
+              <Col xs="auto" className="ms-auto">
                 <Button              
                   onClick={() => { 
                     setUser(null);
