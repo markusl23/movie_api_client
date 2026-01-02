@@ -9,6 +9,7 @@ const MovieApiApplication = () => {
     <Container>
       <MainView />
     </Container>
+  )
 };
 
 const container = document.querySelector('#root');
