@@ -51,7 +51,7 @@ export const MainView = () => {
   return (
     <Row className="justify-content-md-center">
       {!user || !token ? (
-          <>
+          <Col md={5}>
             <h2>New user registration:</h2>
             <SignupView />
             <h2>Existing user login:</h2>
@@ -61,7 +61,7 @@ export const MainView = () => {
                 setToken(token);
               }}
             />
-          </>        
+          </Col>        
         ) : selectedMovie ? (
           <>
             <Col>
@@ -108,8 +108,7 @@ export const MainView = () => {
               );
             })}
           </>
-        )
-      }
+        )}
     </Row>
   );
 };
