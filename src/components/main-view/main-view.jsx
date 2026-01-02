@@ -66,7 +66,6 @@ export const MainView = () => {
         ) : selectedMovie ? (
           <>
             <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-            <hr />
             <h2>Similar movies:</h2>
             {similarMovies.length > 0 ? (
               similarMovies.map((movie) => {
