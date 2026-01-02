@@ -1,3 +1,24 @@
+$primary: #00cc99;
+$secondary: #008f73;
+$body-bg: #0f172a;
+$body-color: #e5e7eb;
+$card-bg: #111c33;
+$border-color: rgba(255, 255, 255, 0.12);
+
+$btn-border-radius: 0.75rem;
+$btn-padding-y: 0.6rem;
+$btn-padding-x: 1rem;
+$btn-font-weight: 600;
+
+$btn-primary-color: #06261d;
+$btn-primary-hover-color: $btn-primary-color;
+
+$input-bg: if($body-bg == #0f172a, #0b1324, #ffffff);
+$input-color: $body-color;
+$input-border-color: $border-color;
+$input-focus-border-color: lighten($primary, 5%);
+$input-focus-box-shadow: 0 0 0 0.2rem rgba(0, 204, 153, 0.25);
+
 @import 'bootstrap/scss/bootstrap.scss'
 
 $color: steelblue;
