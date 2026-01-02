@@ -70,8 +70,8 @@ export const MainView = () => {
               <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
             )}
           </>
-        ) : movies.length === 0 ? (
-          return <div>The movies list is empty!</div>
+        ) : movies.length === 0 ? (          
+          <div>The movies list is empty!</div>
         ) : (
           <>
             <button
