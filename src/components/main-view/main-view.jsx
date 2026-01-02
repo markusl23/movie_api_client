@@ -86,8 +86,7 @@ export const MainView = () => {
           <div>The movies list is empty!</div>
         ) : (
           <>
-            <button
-              className="nav-button"
+            <button              
               onClick={() => { 
                 setUser(null);
                 setToken(null);
