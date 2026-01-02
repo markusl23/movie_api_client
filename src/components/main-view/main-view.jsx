@@ -53,6 +53,7 @@ export const MainView = () => {
   return (
     <Container>
       {!user || !token ? (
+        <Row className="justify-content-md-center">
           <Col md={5}>
             <h2>New user registration:</h2>
             <SignupView />
@@ -63,9 +64,10 @@ export const MainView = () => {
                 setToken(token);
               }}
             />
-          </Col>        
+          </Col>
+        </Row>       
         ) : selectedMovie ? (
-          <>
+          <Row>            
             <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
             <h2>Similar movies:</h2>
             {similarMovies.length > 0 ? (
@@ -82,34 +84,38 @@ export const MainView = () => {
             ) : (
               <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
             )}
-          </>          
+          </Row>          
         ) : movies.length === 0 ? (          
           <div>The movies list is empty!</div>
         ) : (
           <>
-            <Col xs="auto" className="mb-3">
-              <Button              
-                onClick={() => { 
-                  setUser(null);
-                  setToken(null);
-                  localStorage.clear();
-                }}
-              >
-                Logout
-              </Button>
-            </Col>
+            <Row>
+              <Col xs="auto" className="mb-3">
+                <Button              
+                  onClick={() => { 
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                  }}
+                >
+                  Logout
+                </Button>
+              </Col>
+            </Row>
+            <Row>
             {movies.map((movie) => {
               return (
-                <Col key={movie.id} md={3} className="mb-5">
-                  <MovieCard                    
-                    movie={movie}
-                    onMovieClick={(newSelectedMovie) => {
-                      setSelectedMovie(newSelectedMovie);
-                    }}
-                  />
-                </Col>
+                  <Col key={movie.id} md={3} className="mb-5">
+                    <MovieCard                    
+                      movie={movie}
+                      onMovieClick={(newSelectedMovie) => {
+                        setSelectedMovie(newSelectedMovie);
+                      }}
+                    />
+                  </Col>
               );
             })}
+            </Row>
           </>
         )}
     </Container>
