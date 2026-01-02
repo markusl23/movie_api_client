@@ -84,6 +84,7 @@ export const MainView = () => {
   return (
     <div>
       <button
+        className="nav-button"
         onClick={() => { 
           setUser(null);
           setToken(null);
