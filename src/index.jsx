@@ -6,7 +6,7 @@ import './index.scss';
 
 const MovieApiApplication = () => {
   return (
-    <Container style={{ border: "1px solid red"}}>
+    <Container>
       <MainView />
     </Container>
   )
