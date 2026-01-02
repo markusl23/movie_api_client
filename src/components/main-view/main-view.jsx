@@ -64,24 +64,24 @@ export const MainView = () => {
           </Col>        
         ) : selectedMovie ? (
           <>
-            <Col>
-              <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-              <hr />
-              <h2>Similar movies:</h2>
-
-              {similarMovies.length > 0 ? (
-                similarMovies.map((movie) => (
-                  <MovieCard
-                    key={movie.id}
-                    movie={movie}
-                    onMovieClick={setSelectedMovie}
-                  />
-                ))
-              ) : (
-                <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
-              )}
-            </Col>
-          </>
+            <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+            <hr />
+            <h2>Similar movies:</h2>
+            {similarMovies.length > 0 ? (
+              similarMovies.map((movie) => {
+                return (
+                  <Col key={movie.id} md={3}>
+                    <MovieCard                      
+                      movie={movie}
+                      onMovieClick={setSelectedMovie}
+                    />
+                  </Col>
+                )
+              })
+            ) : (
+              <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
+            )}
+          </>          
         ) : movies.length === 0 ? (          
           <div>The movies list is empty!</div>
         ) : (
