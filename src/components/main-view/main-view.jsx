@@ -89,7 +89,7 @@ export const MainView = () => {
           <div>The movies list is empty!</div>
         ) : (
           <>
-            <Row className="mb-3">
+            <Row className="mb-3 mt-3">
               <Col xs="auto" className="ms-auto">
                 <Button              
                   onClick={() => { 
