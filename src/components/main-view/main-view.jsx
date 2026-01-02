@@ -4,6 +4,7 @@ import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -39,7 +40,7 @@ export const MainView = () => {
   }, [token]);
 
   return (
-    <Row>
+    <Row className="justify-content-md-center">
       {!user || !token ? (
           <>
             <h2>New user registration:</h2>
@@ -54,21 +55,23 @@ export const MainView = () => {
           </>        
         ) : selectedMovie ? (
           <>
-            <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-            <hr />
-            <h2>Similar movies:</h2>
+            <Col>
+              <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+              <hr />
+              <h2>Similar movies:</h2>
 
-            {similarMovies.length > 0 ? (
-              similarMovies.map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  movie={movie}
-                  onMovieClick={setSelectedMovie}
-                />
-              ))
-            ) : (
-              <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
-            )}
+              {similarMovies.length > 0 ? (
+                similarMovies.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    movie={movie}
+                    onMovieClick={setSelectedMovie}
+                  />
+                ))
+              ) : (
+                <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
+              )}
+            </Col>
           </>
         ) : movies.length === 0 ? (          
           <div>The movies list is empty!</div>
