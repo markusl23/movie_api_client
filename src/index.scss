@@ -20,6 +20,66 @@ $input-border-color: $border-color;
 $input-focus-border-color: lighten($primary, 5%);
 $input-focus-box-shadow: 0 0 0 0.2rem rgba(0, 204, 153, 0.25);
 
+
+.bg-body-tertiary {
+  background-color: $card-bg !important;
+}
+.navbar {
+  border-bottom: 1px solid $border-color;
+}
+.navbar-brand,
+.navbar-text,
+.nav-link {
+  color: $body-color;
+}
+.navbar-brand:hover,
+.nav-link:hover {
+  color: $primary;
+}
+.nav-link.active {
+  color: $primary;
+}
+.navbar-toggler {
+  border-color: $border-color;
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 204, 153, 0.25);
+  }
+}
+.navbar-toggler-icon {
+  filter: invert(1) grayscale(1) brightness(1.3);
+}
+.offcanvas {
+  background-color: $card-bg;
+  color: $body-color;
+  border-left: 1px solid $border-color;
+}
+.offcanvas-header {
+  border-bottom: 1px solid $border-color;
+}
+
+.offcanvas-title {
+  color: $body-color;
+}
+.offcanvas .btn-close {
+  filter: invert(1) grayscale(1) brightness(1.4);
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+.offcanvas .nav-link {
+  color: $body-color;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+
+  &:hover {
+    color: $primary;
+    background-color: rgba(0, 204, 153, 0.08);
+  }
+}
+
 @import 'bootstrap/scss/bootstrap.scss';
 
 .card {
