@@ -1,29 +1,36 @@
 import PropTypes from "prop-types";
-import Button from "react-bootstrap/Button";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
-export const MovieView = ({ movie, onBackClick}) => {
+export const MovieView = ({ movies }) => {
+  const { movieId } = useParams();
+
+  const movie = movie.find((m) => m.id === movieId);
+
   return (
-  	<div>
-  	  <div>
-  	  	<img src={movie.poster}/>
-  	  </div>
-  	  <div>
-  	  	<strong>Title: </strong>
-  	  	<span>{movie.title}</span>
-  	  </div>
-  	  <div>
-  	  	<strong>Director: </strong>
-  	  	<span>{movie.director}</span>
-  	  </div>
-  	  <div>
-  	  	<strong>Genre: </strong>
-  	  	<span>{movie.genre}</span>
-  	  </div>
-  	  <div>
-  	  	<strong>Description: </strong>
-  	  	<p>{movie.description}</p>
-  	  </div>
-  	  <Button onClick={onBackClick}>Back</Button>
+    <div>
+      <div>
+        <img src={movie.poster}/>
+      </div>
+      <div>
+        <strong>Title: </strong>
+        <span>{movie.title}</span>
+      </div>
+      <div>
+        <strong>Director: </strong>
+        <span>{movie.director}</span>
+      </div>
+      <div>
+        <strong>Genre: </strong>
+        <span>{movie.genre}</span>
+      </div>
+      <div>
+        <strong>Description: </strong>
+        <p>{movie.description}</p>
+      </div>
+      <Link to={`/`}>
+        <button className="back-button">Back</button>
+      </Link>
       <br />
       <hr />
     </div>
@@ -40,4 +47,4 @@ MovieView.propTypes = {
     poster: PropTypes.string.isRequired
   }),
   onBackClick: PropTypes.func.isRequired
-}
+};
