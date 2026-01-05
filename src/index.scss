@@ -36,7 +36,7 @@ $input-focus-box-shadow: 0 0 0 0.2rem rgba(0, 204, 153, 0.25);
 .navbar-brand,
 .navbar-text,
 .nav-link {
-  color: $body-color;
+  color: $body-color !important;
 }
 .navbar-brand:hover,
 .nav-link:hover {
