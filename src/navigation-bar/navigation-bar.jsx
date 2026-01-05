@@ -5,6 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export const NavigationBar = () => {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
   return (
     <>
       {[false].map((expand) => (
@@ -24,7 +26,7 @@ export const NavigationBar = () => {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                     <Navbar.Text>
-                      Signed in as: <a href="#login">Mark Otto</a>
+                      Signed in as: <strong>`${currentUser}`</strong>
                   </Navbar.Text>
                   <Nav.Link href="#action1">User Profile</Nav.Link>
                   <Nav.Link href="#action2">Log out</Nav.Link>
