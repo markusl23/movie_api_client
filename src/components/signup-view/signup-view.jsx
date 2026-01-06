@@ -29,7 +29,7 @@ export const SignupView = () => {
   	}).then((response) => {
   	  if (response.ok) {
   	  	alert("Registration successful!");
-  	  	setTimeout(() => navigate("/login"), 500);
+  	  	navigate("/login");
   	  } else {
   	  	alert(`Registration failed, please use a different username and/or email.`);
   	  }
