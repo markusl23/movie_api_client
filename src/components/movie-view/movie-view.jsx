@@ -46,6 +46,5 @@ MovieView.propTypes = {
     genre: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired
-  }),
-  onBackClick: PropTypes.func.isRequired
+  })
 };
