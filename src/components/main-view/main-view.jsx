@@ -147,8 +147,8 @@ export const MainView = () => {
                 <Row>
                   <Col md={8}>
                     <ProfileView
-                      user={user}
-                      token={token}
+                      storedUser={storedUser}
+                      storedToken={storedToken}
                       movies={movies}
                       onUserUpdated={(updatedUser) => {
                         setUser(updatedUser);
