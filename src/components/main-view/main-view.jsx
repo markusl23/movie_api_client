@@ -137,6 +137,33 @@ export const MainView = () => {
               </>
             }
           />
+          <Route
+            path="/profile"
+            element={
+              !user || !token ? (
+                <Navigate to="/login" replace />
+              ) : (
+                <Row>
+                  <Col md={8}>
+                    <ProfileView
+                      user={user}
+                      token={token}
+                      movies={movies}
+                      onUserUpdated={(updatedUser) => {
+                        setUser(updatedUser);
+                        localStorage.setItem("user", JSON.stringify(updatedUser));
+                      }}
+                      onLoggedOut={() => {
+                      setUser(null);
+                      setToken(null);
+                      localStorage.clear();
+                      }}
+                    />
+                  </Col>
+                </Row>
+              )
+            }
+          />
         </Routes>
       </Container>
   </BrowserRouter>
