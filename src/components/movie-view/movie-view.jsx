@@ -6,16 +6,23 @@ import { MovieCard } from '../movie-card/movie-card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ movies, storedUser, storedToken }) => {
   const { movieId } = useParams();
-
   const movie = movies.find((m) => m.id === movieId);
+  const API_BASE = "https://still-depths-22545-dbe8396f909e.herokuapp.com";
 
   const similarMovies = movies.filter(
     (similarMovie) => 
     movie.genre == similarMovie.genre &&
     movie.id !== similarMovie.id
   );
+
+  const handleAddFavorite = async () => {
+    const res = await fetch(
+      `${API_BASE}/users/${encodeURIComponent(storedUser)}/FavoriteMovies/${encodeURIComponent(movie.id)}`,
+      { method: "PUT", headers: { Authorization: `Bearer ${storedToken}` } }
+    );
+  };
 
   return (
     <div>
@@ -39,8 +46,9 @@ export const MovieView = ({ movies }) => {
         <p>{movie.description}</p>
       </div>
       <Link to={`/`}>
-        <Button>Back</Button>
+        <Button>Back to overview</Button>
       </Link>
+      <Button onClick={handleAddFavorite} className="ms-3">Add to favorites</Button>
       <br />
       <hr />
       <h2>Similar movies:</h2>
