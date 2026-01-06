@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const MovieCard =({ movie }) => {
   const navigate = useNavigate();
