@@ -13,7 +13,7 @@ export const NavigationBar = ({ user, token, onLoggedOut}) => {
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand} className="app-navbar mb-3" sticky="top">
           <Container fluid>
-            <Navbar.Brand href="#">Movie API Client</Navbar.Brand>
+            <Navbar.Brand href="#">Movie API Client</Navbar.Brand>            
             <Navbar.Toggle />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}              
@@ -26,8 +26,9 @@ export const NavigationBar = ({ user, token, onLoggedOut}) => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
+                  <Navbar.Text>Signed in as: <strong>{currentUser}</strong></Navbar.Text>
                   {!user && (
-                    <>
+                    <>                      
                       <Nav.Link as={Link} to="/login">
                         Log in
                       </Nav.Link>
