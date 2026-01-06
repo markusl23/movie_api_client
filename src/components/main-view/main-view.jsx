@@ -72,7 +72,7 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <h2>User registration:</h2>
+                    <h2>New user registration:</h2>
                     <SignupView />
                   </Col>
                 )}
