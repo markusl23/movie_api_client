@@ -8,6 +8,7 @@ export const MovieCard =({ movie }) => {
 
   return (
     <Card
+      className="h-100"
       onClick={() => navigate(`/movies/${encodeURIComponent(movie.id)}`)}
       role="button"
       tabIndex={0}
