@@ -2,11 +2,18 @@ import PropTypes from "prop-types";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import { MovieCard } from '../movie-card/movie-card';
 
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);
+
+  const similarMovies = movies.filter(
+    (similarMovie) => 
+    movie.genre == similarMovie.genre &&
+    movie.id !== similarMovie.id
+  );
 
   return (
     <div>
@@ -34,6 +41,19 @@ export const MovieView = ({ movies }) => {
       </Link>
       <br />
       <hr />
+      <h2>Similar movies:</h2>
+      {similarMovies.length > 0 ? (similarMovies.map((movie) => {
+        return (
+          <div key={movie.id}>
+            <MovieCard                      
+              movie={movie}
+            />
+          </div>
+        )
+      })
+      ) : (
+        <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
+      )}
     </div>
   );
 };
