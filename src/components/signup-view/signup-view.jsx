@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
   	event.preventDefault();
@@ -27,7 +29,7 @@ export const SignupView = () => {
   	}).then((response) => {
   	  if (response.ok) {
   	  	alert("Registration successful!");
-  	  	window.location.reload();
+  	  	setTimeout(() => navigate("/login"), 500);
   	  } else {
   	  	alert(`Registration failed, please use a different username and/or email.`);
   	  }
