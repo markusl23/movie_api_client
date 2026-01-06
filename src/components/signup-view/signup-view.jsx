@@ -26,10 +26,10 @@ export const SignupView = () => {
   		}
   	}).then((response) => {
   	  if (response.ok) {
-  	  	alert("Registration successful");
+  	  	alert("Registration successful!");
   	  	window.location.reload();
   	  } else {
-  	  	alert("Registration failed");
+  	  	alert(`Registration failed, please use a different username and/or email.`);
   	  }
   	});
   };
