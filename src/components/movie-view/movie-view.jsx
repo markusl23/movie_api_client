@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { MovieCard } from '../movie-card/movie-card';
+import Col from 'react-bootstrap/Col';
 
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
@@ -44,11 +45,11 @@ export const MovieView = ({ movies }) => {
       <h2>Similar movies:</h2>
       {similarMovies.length > 0 ? (similarMovies.map((movie) => {
         return (
-          <div key={movie.id}>
+          <Col key={movie.id} md={3}>
             <MovieCard                      
               movie={movie}
             />
-          </div>
+          </Col>
         )
       })
       ) : (
