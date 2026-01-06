@@ -53,29 +53,36 @@ export const MainView = () => {
         }}
       />
       <Row className="justify-content-md-center">
-        <Routes>
-          <Route
-            path="/signup"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
+      </Row>
+
+
+
+      <Routes>
+        <Route
+          path="/signup"
+          element={
+            <>
+              {user ? (
+                <Navigate to="/" />
+              ) : (
+                <Row className="justify-content-md-center">
                   <Col md={5}>
                     <h2>New user registration:</h2>
                     <SignupView />
                   </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
+                </Row>
+              )}
+            </>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <>
+              {user ? (
+                <Navigate to="/" />
+              ) : (
+                <Row className="justify-content-md-center">
                   <Col md={5}>
                     <h2>Existing user login:</h2>
                     <LoginView onLoggedIn={(user, token) => {
@@ -84,49 +91,57 @@ export const MainView = () => {
                     }}
                     />
                   </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/movies/:movieId"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
+                </Row>
+              )}
+            </>
+          }
+        />
+        <Route
+          path="/movies/:movieId"
+          element={
+            <>
+              {!user ? (
+                <Navigate to="/login" replace />
+              ) : movies.length === 0 ? (
+                <Row className="justify-content-md-center">
                   <Col>The movies list is empty!</Col>
-                ) : (
+                </Row>
+              ) : (
+                <Row>
                   <Col md={8}>
                     <MovieView movies={movies} />
                   </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
+                </Row>
+              )}
+            </>
+          }
+        />
+        <Route
+          path="/"
+          element={
+          <>
+              {!user ? (
+                <Navigate to="/login" replace />
+              ) : movies.length === 0 ? (
+                <Row className="justify-content-md-center">
                   <Col>The movies list is empty!</Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
+                </Row>
+              ) : (
+                <>
+                  <Row>
+                    {movies.map((movie) => (                      
                       <Col key= {movie.id} className="mb-4" md={3}>
                         <MovieCard movie={movie} />
-                      </Col>
+                      </Col>                      
                     ))}
-                  </>
-                )
-            }
-              </>
-            }
-          />
-        </Routes>
-      </Row>
-    </BrowserRouter>
+                  </Row>
+                </>
+              )
+          }
+            </>
+          }
+        />
+      </Routes>
+  </BrowserRouter>
   );
 };
