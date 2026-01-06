@@ -11,7 +11,7 @@ export const NavigationBar = ({ user, token, onLoggedOut}) => {
   return (
     <>
       {[false].map((expand) => (
-        <Navbar key={expand} expand={expand} className="app-navbar mb-3">
+        <Navbar key={expand} expand={expand} className="app-navbar mb-3" sticky="top">
           <Container fluid>
             <Navbar.Brand href="#">Movie API Client</Navbar.Brand>
             <Navbar.Toggle />
