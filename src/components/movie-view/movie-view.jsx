@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { MovieCard } from '../movie-card/movie-card';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
@@ -43,18 +44,18 @@ export const MovieView = ({ movies }) => {
       <br />
       <hr />
       <h2>Similar movies:</h2>
-      {similarMovies.length > 0 ? (similarMovies.map((movie) => {
-        return (
-          <Col key={movie.id} md={3}>
-            <MovieCard                      
-              movie={movie}
-            />
-          </Col>
-        )
-      })
-      ) : (
-        <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
-      )}
+        <Row>
+          {similarMovies.length > 0 ? (similarMovies.map((movie) => {
+            return (
+              <Col key={movie.id} className="mb-4" md={3}>
+                <MovieCard movie={movie} />
+              </Col>                      
+            )
+          })
+          ) : (
+            <div>Based on the genre of the selected movie, no similar movie available in this database...</div>
+          )}
+        </Row>
     </div>
   );
 };

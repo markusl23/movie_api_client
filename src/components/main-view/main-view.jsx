@@ -130,7 +130,7 @@ export const MainView = () => {
                 <>
                   <Row>
                     {movies.map((movie) => (                      
-                      <Col key= {movie.id} className="mb-4" md={3}>
+                      <Col key={movie.id} className="mb-4" md={3}>
                         <MovieCard movie={movie} />
                       </Col>                      
                     ))}
