@@ -22,6 +22,10 @@ export const MovieView = ({ movies, storedUser, storedToken }) => {
       `${API_BASE}/users/${encodeURIComponent(storedUser)}/FavoriteMovies/${encodeURIComponent(movie.id)}`,
       { method: "PUT", headers: { Authorization: `Bearer ${storedToken}` } }
     );
+
+    if (res) {
+      alert("Movie added to favorites!");
+    }
   };
 
   return (
