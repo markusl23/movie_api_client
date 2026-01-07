@@ -6,7 +6,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-export const MovieView = ({ movies, storedUser, storedToken }) => {
+export const MovieView = ({ movies, storedUserId, storedToken }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m.id === movieId);
   const API_BASE = "https://still-depths-22545-dbe8396f909e.herokuapp.com";
@@ -19,7 +19,7 @@ export const MovieView = ({ movies, storedUser, storedToken }) => {
 
   const handleAddFavorite = async () => {
     const res = await fetch(
-      `${API_BASE}/users/${encodeURIComponent(storedUser)}/FavoriteMovies/${encodeURIComponent(movie.id)}`,
+      `${API_BASE}/users/${encodeURIComponent(storedUserId)}/FavoriteMovies/${encodeURIComponent(movie.id)}`,
       { method: "PUT", headers: { Authorization: `Bearer ${storedToken}` } }
     );
 
