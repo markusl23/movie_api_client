@@ -135,12 +135,12 @@ export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, on
       <Form onSubmit={handleUpdate} className="mb-4">
         <Form.Group className="mb-2">
           <Form.Label>Email</Form.Label>
-          <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Form.Group>
 
         <Form.Group className="mb-2">
           <Form.Label>Birthday</Form.Label>
-          <Form.Control value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+          <Form.Control type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
         </Form.Group>
 
         <Form.Group className="mb-3">
