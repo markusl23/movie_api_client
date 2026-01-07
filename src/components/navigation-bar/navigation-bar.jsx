@@ -5,8 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
 
-export const NavigationBar = ({ user, token, onLoggedOut}) => {
+export const NavigationBar = ({ user, onLoggedOut}) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
+  const currentUserId = localStorage.getItem("userid");
 
   return (
     <>
@@ -25,8 +26,7 @@ export const NavigationBar = ({ user, token, onLoggedOut}) => {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Navbar.Text>Signed in as: <strong>{currentUser}</strong></Navbar.Text>
+                <Nav className="justify-content-end flex-grow-1 pe-3">                  
                   {!user && (
                     <>                      
                       <Nav.Link as={Link} to="/login">
@@ -39,6 +39,9 @@ export const NavigationBar = ({ user, token, onLoggedOut}) => {
                   )}
                   {user && (
                     <>
+                      <Navbar.Text>Signed in as: <strong>{currentUser}</strong></Navbar.Text>
+                      <Navbar.Text>User ID: <strong>{currentUserId}</strong></Navbar.Text>
+                      <br />
                       <Nav.Link as={Link} to="/">
                         Home
                       </Nav.Link>
