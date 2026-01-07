@@ -4,8 +4,10 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, onLoggedOut }) => {
-  const username = storedUser;
+export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onUserUpdated, onLoggedOut }) => {
+  const [userid, setUserid] = useState(storedUserId);
+  const [username, setUsername] = useState(storedUser);
+  const [token, setToken] = useState(storedToken);
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
   const [info, setInfo] = useState(null);
@@ -17,10 +19,10 @@ export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, on
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (!username || !storedToken) return;
+    if (!username || !token) return;
 
-    fetch(`${API_BASE}/users/${encodeURIComponent(username)}`, {
-      headers: { Authorization: `Bearer ${storedToken}` }
+    fetch(`${API_BASE}/users/${encodeURIComponent(userid)}`, {
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((data) => {
@@ -29,7 +31,7 @@ export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, on
         setBirthday(data.Birthday ?? "");
       })
       .catch(() => setError("Could not load profile."));
-  }, [username, storedToken]);
+  }, [userid, username, token]);
 
   const favoriteMovieIds = profile?.FavoriteMovies ?? [];
 
@@ -51,10 +53,10 @@ export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, on
       ...(password ? { Password: password } : {}),
     };
 
-    fetch(`${API_BASE}/users/${encodeURIComponent(username)}`, {
+    fetch(`${API_BASE}/users/${encodeURIComponent(userid)}`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${storedToken}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -79,9 +81,9 @@ export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, on
     if (!ok) return;
 
     try {
-      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(username)}`, {
+      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(userid)}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${storedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (!res.ok) throw new Error();
@@ -99,10 +101,10 @@ export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, on
 
     try {
       const res = await fetch(
-        `${API_BASE}/users/${encodeURIComponent(username)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
+        `${API_BASE}/users/${encodeURIComponent(userid)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
         {
           method: "DELETE",
-          headers: { Authorization: `Bearer ${storedToken}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -133,6 +135,11 @@ export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, on
 
       <h3>Update profile</h3>
       <Form onSubmit={handleUpdate} className="mb-4">
+        <Form.Group className="mb-2">
+          <Form.Label>User name</Form.Label>
+          <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        </Form.Group>
+
         <Form.Group className="mb-2">
           <Form.Label>Email</Form.Label>
           <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
