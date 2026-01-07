@@ -4,8 +4,8 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = ({ user, token, movies, onUserUpdated, onLoggedOut }) => {
-  const username = user?.Username || user?.username; // depending on what your login returns
+export const ProfileView = ({ storedUser, storedToken, movies, onUserUpdated, onLoggedOut }) => {
+  const username = storedUser;
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
   const [info, setInfo] = useState(null);
@@ -17,10 +17,10 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onLoggedOut })
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (!username || !token) return;
+    if (!username || !storedToken) return;
 
     fetch(`${API_BASE}/users/${encodeURIComponent(username)}`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${storedToken}` }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((data) => {
@@ -29,7 +29,7 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onLoggedOut })
         setBirthday(data.Birthday ?? "");
       })
       .catch(() => setError("Could not load profile."));
-  }, [username, token]);
+  }, [username, storedToken]);
 
   const favoriteMovieIds = profile?.FavoriteMovies ?? [];
 
@@ -54,7 +54,7 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onLoggedOut })
     fetch(`${API_BASE}/users/${encodeURIComponent(username)}`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${storedToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -81,7 +81,7 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onLoggedOut })
     try {
       const res = await fetch(`${API_BASE}/users/${encodeURIComponent(username)}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${storedToken}` },
       });
 
       if (!res.ok) throw new Error();
@@ -102,7 +102,7 @@ export const ProfileView = ({ user, token, movies, onUserUpdated, onLoggedOut })
         `${API_BASE}/users/${encodeURIComponent(username)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
         {
           method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${storedToken}` },
         }
       );
 
