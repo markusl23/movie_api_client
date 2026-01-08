@@ -77,12 +77,17 @@ export const MovieView = ({ movies, storedUserId, storedToken }) => {
 };
 
 MovieView.propTypes = {
-  movie: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired
-  })
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      director: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired
+    })
+  ).isRequired,
+
+  storedUserId: PropTypes.string.isRequired,
+  storedToken: PropTypes.string.isRequired
 };
