@@ -110,7 +110,7 @@ export const MainView = () => {
                 ) : (
                   <Row>
                     <Col md={8}>
-                      <MovieView movies={movies} storedUserId={storedUserId} storedToken={storedToken} />
+                      <MovieView movies={movies} storedUserId={userId} storedToken={token} />
                     </Col>
                   </Row>
                 )}
@@ -151,9 +151,9 @@ export const MainView = () => {
                 <Row>
                   <Col md={8}>
                     <ProfileView
-                      storedUserId={storedUserId}
-                      storedUser={storedUser}
-                      storedToken={storedToken}
+                      storedUserId={userId}
+                      storedUser={user}
+                      storedToken={token}
                       movies={movies}
                       onUserUpdated={(updatedUser) => {
                         setUser(updatedUser.Username);
