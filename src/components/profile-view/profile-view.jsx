@@ -159,6 +159,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         favoriteMovies.map((m) => (
           <div key={m.id} className="mb-3">
             <MovieCard movie={m} />
+            <br />
             <Button
               variant="outline-danger"
               size="sm"
