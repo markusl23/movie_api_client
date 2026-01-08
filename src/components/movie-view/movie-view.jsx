@@ -28,8 +28,7 @@ export const MovieView = ({ movies, storedUserId, storedToken }) => {
     );
 
     if (res.ok) {
-      alert("Movie added to favorites!") else (alert("Error!"));
-    }
+      alert("Movie added to favorites!")} else {(alert("Error!"));}
   };
 
   return (
