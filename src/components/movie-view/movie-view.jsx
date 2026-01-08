@@ -11,6 +11,10 @@ export const MovieView = ({ movies, storedUserId, storedToken }) => {
   const movie = movies.find((m) => m.id === movieId);
   const API_BASE = "https://still-depths-22545-dbe8396f909e.herokuapp.com";
 
+  if (!movie) {
+      return (<div>Loading...</div>);
+  }
+
   const similarMovies = movies.filter(
     (similarMovie) => 
     movie.genre == similarMovie.genre &&
