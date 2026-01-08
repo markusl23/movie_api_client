@@ -11,9 +11,11 @@ import Container from 'react-bootstrap/Container';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 export const MainView = () => {
+  const storedUserId = localStorage.getItem("userid");
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
+  const [userId, setUserId] = useState(storedUserId? storedUserId : null);
   const [user, setUser] = useState(storedUser? storedUser : null);
   const [token, setToken] = useState(storedToken? storedToken : null);
 
@@ -82,7 +84,8 @@ export const MainView = () => {
                   <Row className="justify-content-md-center">
                     <Col md={5}>
                       <h2>Existing user login:</h2>
-                      <LoginView onLoggedIn={(user, token) => {
+                      <LoginView onLoggedIn={(userId, user, token) => {
+                        setUserId(userId);
                         setUser(user);
                         setToken(token);
                       }}
@@ -147,6 +150,7 @@ export const MainView = () => {
                 <Row>
                   <Col md={8}>
                     <ProfileView
+                      storedUserId={storedUserId}
                       storedUser={storedUser}
                       storedToken={storedToken}
                       movies={movies}

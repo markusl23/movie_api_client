@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export const NavigationBar = ({ user, onLoggedOut}) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  const currentUserId = localStorage.getItem("userid");
+  const currentUserId = localStorage.getItem("userId");
 
   return (
     <>
