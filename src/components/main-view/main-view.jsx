@@ -50,6 +50,7 @@ export const MainView = () => {
         user={user}
         token={token}
         onLoggedOut={() => {
+          setUserId(null);
           setUser(null);
           setToken(null);
           localStorage.clear();
@@ -159,6 +160,7 @@ export const MainView = () => {
                         localStorage.setItem("user", JSON.stringify(updatedUser.Username));
                       }}
                       onLoggedOut={() => {
+                      setUserId(null);
                       setUser(null);
                       setToken(null);
                       localStorage.clear();
