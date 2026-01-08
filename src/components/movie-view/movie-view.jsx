@@ -23,8 +23,8 @@ export const MovieView = ({ movies, storedUserId, storedToken }) => {
       { method: "PUT", headers: { Authorization: `Bearer ${storedToken}` } }
     );
 
-    if (res) {
-      alert("Movie added to favorites!");
+    if (res.ok) {
+      alert("Movie added to favorites!") else (alert("Error!"));
     }
   };
 
