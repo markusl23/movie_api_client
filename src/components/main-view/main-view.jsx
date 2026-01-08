@@ -155,8 +155,8 @@ export const MainView = () => {
                       storedToken={storedToken}
                       movies={movies}
                       onUserUpdated={(updatedUser) => {
-                        setUser(updatedUser);
-                        localStorage.setItem("user", JSON.stringify(updatedUser));
+                        setUser(updatedUser.Username);
+                        localStorage.setItem("user", JSON.stringify(updatedUser.Username));
                       }}
                       onLoggedOut={() => {
                       setUser(null);
