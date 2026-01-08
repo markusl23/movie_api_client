@@ -109,7 +109,7 @@ export const MainView = () => {
                 ) : (
                   <Row>
                     <Col md={8}>
-                      <MovieView movies={movies} storedUser={storedUser} storedToken={storedToken} />
+                      <MovieView movies={movies} storedUserId={storedUserId} storedToken={storedToken} />
                     </Col>
                   </Row>
                 )}
