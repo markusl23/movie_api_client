@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { MovieCard } from '../movie-card/movie-card';
