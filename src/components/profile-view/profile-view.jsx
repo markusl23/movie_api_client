@@ -13,7 +13,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
   const [info, setInfo] = useState(null);
   const API_BASE = "https://still-depths-22545-dbe8396f909e.herokuapp.com";
 
-  // form fields (initialize after profile load)
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +35,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
   const favoriteMovieIds = profile?.FavoriteMovies ?? [];
 
   const favoriteMovies = useMemo(() => {
-    // Your movies already contain `id` mapped from `_id`
     return movies.filter((m) => favoriteMovieIds.includes(m.id));
   }, [movies, favoriteMovieIds]);
 
@@ -49,7 +47,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       Username: username,
       Email: email,
       Birthday: birthday,
-      // only send Password if user entered one
       ...(password ? { Password: password } : {}),
     };
 
@@ -66,8 +63,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         setProfile(updated);
         setPassword("");
         setInfo("Profile updated.");
-
-        // Keep app state + localStorage in sync
         onUserUpdated?.(updated);
       })
       .catch(() => setError("Update failed."));
@@ -88,7 +83,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
       if (!res.ok) throw new Error();
 
-      // log out client-side
       onLoggedOut?.();
     } catch {
       setError("Account deletion failed.");
@@ -104,7 +98,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         `${API_BASE}/users/${encodeURIComponent(storedUserId)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
         {
           method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${storedToken}` },
         }
       );
 
