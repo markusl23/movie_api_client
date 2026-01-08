@@ -21,7 +21,7 @@ export const SignupView = () => {
   	};
 
   	fetch("https://still-depths-22545-dbe8396f909e.herokuapp.com/users", {
-  		method: "Post",
+  		method: "POST",
   		body: JSON.stringify(data),
   		headers: {
   		  "Content-Type": "application/json"
