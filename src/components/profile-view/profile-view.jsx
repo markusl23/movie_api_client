@@ -191,20 +191,24 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       {favoriteMovies.length === 0 ? (
         <div>You have no favorite movies yet.</div>
       ) : (
-        favoriteMovies.map((m) => (
-          <div key={m.id} className="mb-3">
-            <MovieCard movie={m} />
-            <br />
-            <Button
-              variant="outline-danger"
-              size="sm"
-              className="mt-2"
-              onClick={() => handleRemoveFavorite(m.id)}
-            >
-              Remove from favorites
-            </Button>
-          </div>
-        ))
+        <>
+          <Row>
+            {favoriteMovies.map((m) => (          
+              <Col className="mb-4" md={3} key={m.id}>
+                <MovieCard movie={m} />
+                <br />
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  className="mt-2"
+                  onClick={() => handleRemoveFavorite(m.id)}
+                >
+                  Remove from favorites
+                </Button>
+              </Col>
+            ))}
+          </Row>
+        </>
       )}
 
       <hr />
