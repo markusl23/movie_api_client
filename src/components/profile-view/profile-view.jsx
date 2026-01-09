@@ -189,11 +189,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
           </Row>
         </>
       )}
-
       <hr />
-      <Button variant="danger" onClick={handleDeregister}>
-        Delete account
-      </Button>
     </>
   );
 };
