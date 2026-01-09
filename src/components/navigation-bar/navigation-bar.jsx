@@ -4,10 +4,34 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export const NavigationBar = ({ user, onLoggedOut}) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserId = localStorage.getItem("userId");
+  const [error, setError] = useState(null);
+  const [info, setInfo] = useState(null);
+
+  const handleDeregister = async () => {
+    setError(null);
+    setInfo(null);
+
+    const ok = window.confirm("Really delete your account? This cannot be undone.");
+    if (!ok) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(currentUserId)}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+
+      if (!res.ok) throw new Error();
+
+      onLoggedOut?.();
+    } catch {
+      setError("Account deletion failed.");
+    }
+  };
 
   return (
     <>
@@ -50,6 +74,9 @@ export const NavigationBar = ({ user, onLoggedOut}) => {
                       </Nav.Link>
                       <Nav.Link onClick={onLoggedOut}>
                         Log out
+                      </Nav.Link>
+                      <Nav.Link variant="danger" onClick={handleDeregister}>
+                        Delete account
                       </Nav.Link>
                     </>
                   )}

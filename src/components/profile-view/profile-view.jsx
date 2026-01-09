@@ -103,27 +103,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       .catch(() => setError("Update failed."));
   };
 
-  const handleDeregister = async () => {
-    setError(null);
-    setInfo(null);
-
-    const ok = window.confirm("Really delete your account? This cannot be undone.");
-    if (!ok) return;
-
-    try {
-      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(userId)}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${storedToken}` },
-      });
-
-      if (!res.ok) throw new Error();
-
-      onLoggedOut?.();
-    } catch {
-      setError("Account deletion failed.");
-    }
-  };
-
   const handleRemoveFavorite = async (movieId) => {
     setError(null);
     setInfo(null);
@@ -200,7 +179,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
                 <Button
                   variant="outline-danger"
                   size="sm"
-                  className="mt-2"
+                  className="mt-4"
                   onClick={() => handleRemoveFavorite(m.id)}
                 >
                   Remove from favorites
