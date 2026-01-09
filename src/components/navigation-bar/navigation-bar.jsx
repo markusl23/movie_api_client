@@ -65,7 +65,7 @@ export const NavigationBar = ({ user, onLoggedOut}) => {
                     <>
                       <Navbar.Text>Signed in as: <strong>{currentUser}</strong></Navbar.Text>
                       <Navbar.Text>User ID: <strong>{currentUserId}</strong></Navbar.Text>
-                      <br />
+                      <hr />
                       <Nav.Link as={Link} to="/">
                         Home
                       </Nav.Link>
@@ -75,8 +75,9 @@ export const NavigationBar = ({ user, onLoggedOut}) => {
                       <Nav.Link onClick={onLoggedOut}>
                         Log out
                       </Nav.Link>
-                      <Nav.Link variant="danger" onClick={handleDeregister}>
-                        Delete account
+                      <hr />
+                      <Nav.Link onClick={handleDeregister}>
+                        <strong>Delete account</strong>
                       </Nav.Link>
                     </>
                   )}
