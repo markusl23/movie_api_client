@@ -149,7 +149,7 @@ export const MainView = () => {
                 <Navigate to="/login" replace />
               ) : (
                 <Row>
-                  <Col md={8}>
+                  <Col>
                     <ProfileView
                       storedUserId={userId}
                       storedUser={user}
