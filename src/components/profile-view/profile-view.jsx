@@ -173,9 +173,8 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         <>
           <Row>
             {favoriteMovies.map((m) => (          
-              <Col className="mb-4" md={3} key={m.id}>
-                <MovieCard movie={m} />
-                <br />
+              <Col md={3} key={m.id}>
+                <MovieCard movie={m} className="mb-4" />
                 <Button
                   variant="outline-danger"
                   size="sm"
@@ -189,7 +188,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
           </Row>
         </>
       )}
-      <hr />
     </>
   );
 };
