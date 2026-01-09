@@ -30,7 +30,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         setBirthday(data.Birthday ? String(data.Birthday).slice(0, 10) : "");
       })
       .catch(() => setError("Could not load profile."));
-  }, [userId, user, token]);
+  }, [userId, username, token]);
 
   const favoriteMovieIds = profile?.FavoriteMovies ?? [];
 
