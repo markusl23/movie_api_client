@@ -20,7 +20,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
   useEffect(() => {
     if (!username || !token) return;
 
-    fetch(`${API_BASE}/users/${storedUserId}`, {
+    fetch(`${API_BASE}/users/${userId}`, {
       headers: { Authorization: `Bearer ${storedToken}` }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
@@ -30,7 +30,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         setBirthday(data.Birthday ? String(data.Birthday).slice(0, 10) : "");
       })
       .catch(() => setError("Could not load profile."));
-  }, [storedUserId, storedUser, storedToken]);
+  }, [userId, user, token]);
 
   const favoriteMovieIds = profile?.FavoriteMovies ?? [];
 
@@ -50,7 +50,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       ...(password ? { Password: password } : {}),
     };
 
-    fetch(`${API_BASE}/users/${encodeURIComponent(storedUserId)}`, {
+    fetch(`${API_BASE}/users/${encodeURIComponent(userId)}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${storedToken}`,
@@ -76,7 +76,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
     if (!ok) return;
 
     try {
-      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(storedUserId)}`, {
+      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(userId)}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${storedToken}` },
       });
@@ -95,7 +95,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
     try {
       const res = await fetch(
-        `${API_BASE}/users/${encodeURIComponent(storedUserId)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
+        `${API_BASE}/users/${encodeURIComponent(userId)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${storedToken}` },
