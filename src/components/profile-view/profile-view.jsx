@@ -27,7 +27,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       .then((data) => {
         setProfile(data);
         setEmail(data.Email ?? "");
-        setBirthday(data.Birthday ?? "");
+        setBirthday(data.Birthday ? String(data.Birthday).slice(0, 10) : "");
       })
       .catch(() => setError("Could not load profile."));
   }, [storedUserId, storedUser, storedToken]);
