@@ -49,16 +49,16 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       payload.Username = username;
     }
 
-    if (username !== profile.Username) {
-      payload.Username = username;
+    if (email !== profile.Email) {
+      payload.Email = email;
     }
 
-    if (username !== profile.Username) {
-      payload.Username = username;
+    if (birthday !== profile.Birthday) {
+      payload.Birthday = birthday;
     }
 
     if (password) {
-      payload.Username = username;
+      payload.Password = password;
     }
 
     if (Object.keys(payload).length === 0) {
