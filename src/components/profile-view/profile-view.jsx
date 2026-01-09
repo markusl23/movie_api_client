@@ -43,12 +43,29 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
     setError(null);
     setInfo(null);
 
-    const payload = {
-      Username: username,
-      Email: email,
-      Birthday: birthday,
-      ...(password ? { Password: password } : {}),
-    };
+    const payload = {};
+
+    if (username !== profile.Username) {
+      payload.Username = username;
+    }
+
+    if (username !== profile.Username) {
+      payload.Username = username;
+    }
+
+    if (username !== profile.Username) {
+      payload.Username = username;
+    }
+
+    if (password) {
+      payload.Username = username;
+    }
+
+    if (Object.keys(payload).length === 0) {
+      setInfo("No changes to save.");
+      return;
+    }
+
 
     fetch(`${API_BASE}/users/${encodeURIComponent(userId)}`, {
       method: "PUT",
