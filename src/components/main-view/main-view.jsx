@@ -156,6 +156,7 @@ export const MainView = () => {
                   onUserUpdated={(updatedUser) => {
                     setUser(updatedUser.Username);
                     localStorage.setItem("user", JSON.stringify(updatedUser.Username));
+                    localStorage.setItem("userid", updatedUser._id ?? userId);
                   }}
                   onLoggedOut={() => {
                   setUserId(null);
