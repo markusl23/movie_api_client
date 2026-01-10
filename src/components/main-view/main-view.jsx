@@ -145,7 +145,7 @@ export const MainView = () => {
           <Route
             path="/profile"
             element={
-              !token ? (
+              !token || !userId ? (
                 <Navigate to="/login" replace />
               ) : (
                 <ProfileView
