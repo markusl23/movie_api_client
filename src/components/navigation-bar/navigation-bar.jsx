@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 export const NavigationBar = ({ user, onLoggedOut}) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  const currentUserId = localStorage.getItem("userId");
+  const currentUserId = localStorage.getItem("userid");
   const [error, setError] = useState(null);
   const [info, setInfo] = useState(null);
 
