@@ -21,7 +21,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (!username || !token) return;
+    if (!userId || !token) return;
 
     fetch(`${API_BASE}/users/${userId}`, {
       headers: { Authorization: `Bearer ${storedToken}` }
