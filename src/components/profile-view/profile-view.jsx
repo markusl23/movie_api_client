@@ -130,41 +130,45 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
   return (
     <>
-      <h2>Your profile</h2>
+      <Row>
+        <Col>
+          <h2>Your profile</h2>
 
-      {error && <Alert variant="danger">{error}</Alert>}
-      {info && <Alert variant="success">{info}</Alert>}
+          {error && <Alert variant="danger">{error}</Alert>}
+          {info && <Alert variant="success">{info}</Alert>}
 
-      <div className="mb-4">
-        <div><strong>Username:</strong> {profile.Username}</div>
-        <div><strong>Email:</strong> {profile.Email}</div>
-        <div><strong>Birthday:</strong> {profile.Birthday ? String(profile.Birthday).slice(0, 10) : "-"}</div>
-      </div>
+          <div className="mb-4">
+            <div><strong>Username:</strong> {profile.Username}</div>
+            <div><strong>Email:</strong> {profile.Email}</div>
+            <div><strong>Birthday:</strong> {profile.Birthday ? String(profile.Birthday).slice(0, 10) : "-"}</div>
+          </div>
 
-      <h3>Update profile</h3>
-      <Form onSubmit={handleUpdate} className="mb-4">
-        <Form.Group className="mb-2">
-          <Form.Label>User name</Form.Label>
-          <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </Form.Group>
+          <h3>Update profile</h3>
+          <Form onSubmit={handleUpdate} className="mb-4">
+            <Form.Group className="mb-2">
+              <Form.Label>User name</Form.Label>
+              <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </Form.Group>
 
-        <Form.Group className="mb-2">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </Form.Group>
 
-        <Form.Group className="mb-2">
-          <Form.Label>Birthday</Form.Label>
-          <Form.Control type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
-        </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Birthday</Form.Label>
+              <Form.Control type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+            </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>New password (optional)</Form.Label>
-          <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>New password (optional)</Form.Label>
+              <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </Form.Group>
 
-        <Button type="submit">Save changes</Button>
-      </Form>
+            <Button type="submit">Save changes</Button>
+          </Form>
+        </Col>
+      </Row>
 
       <h3>Favorite movies</h3>
       {favoriteMovies.length === 0 ? (
@@ -173,17 +177,21 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         <>
           <Row>
             {favoriteMovies.map((m) => (          
-              <Col md={3} key={m.id}>
-                <MovieCard movie={m} className="mb-4" />
-                <Button
-                  variant="outline-danger"
-                  size="sm"
-                  className="mt-4"
-                  onClick={() => handleRemoveFavorite(m.id)}
-                >
-                  Remove from favorites
-                </Button>
-              </Col>
+              <Col md={3} className="mt-4 mb-4" key={m.id}>
+                <div className="h-100 d-flex flex-column">
+                  <div className="flex-grow-1">
+                    <MovieCard movie={m} />
+                  </div>
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    className="mt-2 w-100"                                    
+                    onClick={() => handleRemoveFavorite(m.id)}
+                  >
+                    Remove from favorites
+                  </Button>
+                </div>
+              </Col>              
             ))}
           </Row>
         </>

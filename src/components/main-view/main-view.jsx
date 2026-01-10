@@ -148,26 +148,22 @@ export const MainView = () => {
               !user || !token ? (
                 <Navigate to="/login" replace />
               ) : (
-                <Row>
-                  <Col>
-                    <ProfileView
-                      storedUserId={userId}
-                      storedUser={user}
-                      storedToken={token}
-                      movies={movies}
-                      onUserUpdated={(updatedUser) => {
-                        setUser(updatedUser.Username);
-                        localStorage.setItem("user", JSON.stringify(updatedUser.Username));
-                      }}
-                      onLoggedOut={() => {
-                      setUserId(null);
-                      setUser(null);
-                      setToken(null);
-                      localStorage.clear();
-                      }}
-                    />
-                  </Col>
-                </Row>
+                <ProfileView
+                  storedUserId={userId}
+                  storedUser={user}
+                  storedToken={token}
+                  movies={movies}
+                  onUserUpdated={(updatedUser) => {
+                    setUser(updatedUser.Username);
+                    localStorage.setItem("user", JSON.stringify(updatedUser.Username));
+                  }}
+                  onLoggedOut={() => {
+                  setUserId(null);
+                  setUser(null);
+                  setToken(null);
+                  localStorage.clear();
+                  }}
+                />            
               )
             }
           />
