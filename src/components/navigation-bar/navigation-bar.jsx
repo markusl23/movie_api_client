@@ -9,8 +9,10 @@ import { useState } from 'react';
 export const NavigationBar = ({ user, onLoggedOut}) => {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const currentUserId = localStorage.getItem("userid");
+  const currentToken = localStorage.getItem("token");
   const [error, setError] = useState(null);
   const [info, setInfo] = useState(null);
+  const API_BASE = "https://still-depths-22545-dbe8396f909e.herokuapp.com";
 
   const handleDeregister = async () => {
     setError(null);
@@ -22,7 +24,7 @@ export const NavigationBar = ({ user, onLoggedOut}) => {
     try {
       const res = await fetch(`${API_BASE}/users/${encodeURIComponent(currentUserId)}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${storedToken}` },
+        headers: { Authorization: `Bearer ${currentToken}` },
       });
 
       if (!res.ok) throw new Error();
