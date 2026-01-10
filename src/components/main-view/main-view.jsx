@@ -62,7 +62,7 @@ export const MainView = () => {
             path="/signup"
             element={
               <>
-                {user ? (
+                {token ? (
                   <Navigate to="/" />
                 ) : (
                   <Row className="justify-content-md-center">
@@ -79,7 +79,7 @@ export const MainView = () => {
             path="/login"
             element={
               <>
-                {user ? (
+                {token ? (
                   <Navigate to="/" />
                 ) : (
                   <Row className="justify-content-md-center">
@@ -101,7 +101,7 @@ export const MainView = () => {
             path="/movies/:movieId"
             element={
               <>
-                {!user ? (
+                {!token ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
                   <Row className="justify-content-md-center">
@@ -121,7 +121,7 @@ export const MainView = () => {
             path="/"
             element={
             <>
-                {!user ? (
+                {!token ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
                   <Row className="justify-content-md-center">
@@ -145,7 +145,7 @@ export const MainView = () => {
           <Route
             path="/profile"
             element={
-              !user || !token ? (
+              !token ? (
                 <Navigate to="/login" replace />
               ) : (
                 <ProfileView
