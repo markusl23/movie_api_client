@@ -20,7 +20,6 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
   const [birthday, setBirthday] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [value, setValue] = useState("");
 
   useEffect(() => {
     if (!userId || !token) return;
