@@ -86,18 +86,16 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       .then(async (res) => {
         const data = await res.json().catch(() => null);
 
-        if (!res.ok) {
-          console.error("Update failed:", res.status, data);
+        if (!response.ok) {      
+          if (data.errors && data.errors.length > 0) {
+            alert(data.errors[0].msg);
+          } else {
+            alert("Update failed.");
+          }
+        throw new Error("Request failed");
+        }
 
-        const message =
-          data?.errors?.map((e) => `${e.param}: ${e.msg}`).join(" | ") ||
-          data?.message ||
-          `Request failed with status ${res.status}`;
-          
-          throw new Error(message);
-      }
-
-      return data; // success JSON
+      return data;
       })
       .then((updated) => {
         setProfile(updated);
