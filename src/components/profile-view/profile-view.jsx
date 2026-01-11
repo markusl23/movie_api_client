@@ -20,6 +20,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
   const [birthday, setBirthday] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     if (!userId || !token) return;
@@ -151,27 +152,27 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
           <Form onSubmit={handleUpdate} className="mb-4">
             <Form.Group className="mb-2">
               <Form.Label>User name</Form.Label>
-              <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <Form.Control type="text" placeholder="enter new user name" onChange={(e) => setUsername(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-2">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Form.Control type="email" placeholder="enter new email address" onChange={(e) => setEmail(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-2">
               <Form.Label>Birthday</Form.Label>
-              <Form.Control type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+              <Form.Control type="text" placeholder="enter new birthday" onChange={(e) => setBirthday(e.target.value)} onFocus={(e) => (e.target.type = "date")} onBlur={(e) => (e.target.type = value ? "date" : "text")} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Current Password (required for any & all updates)</Form.Label>
-              <Form.Control type="password" value={currentPassword} minLength="8" onChange={(e) => setCurrentPassword(e.target.value)} />
+              <Form.Control type="password" placeholder="enter current password" value={currentPassword} minLength="8" onChange={(e) => setCurrentPassword(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>New password (optional)</Form.Label>
-              <Form.Control type="password" value={newPassword} minLength="8" onChange={(e) => setNewPassword(e.target.value)} />
+              <Form.Control type="password" placeholder="enter new password" value={newPassword} minLength="8" onChange={(e) => setNewPassword(e.target.value)} />
             </Form.Group>
 
             <Button type="submit">Save changes</Button>
