@@ -8,33 +8,29 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
 export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onUserUpdated, onLoggedOut }) => {
-  const [userId, setUserId] = useState(storedUserId);
-  const [username, setUsername] = useState(storedUser);
-  const [token, setToken] = useState(storedToken);
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
   const [info, setInfo] = useState(null);
   const API_BASE = "https://still-depths-22545-dbe8396f909e.herokuapp.com";
 
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
-    if (!userId || !token) return;
+    if (!storedUserId || !storedToken) return;
 
-    fetch(`${API_BASE}/users/${userId}`, {
+    fetch(`${API_BASE}/users/${storedUserId}`, {
       headers: { Authorization: `Bearer ${storedToken}` }
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((data) => {
         setProfile(data);
-        setEmail(data.Email ?? "");
-        setBirthday(data.Birthday ? String(data.Birthday).slice(0, 10) : "");
       })
       .catch(() => setError("Could not load profile."));
-  }, [userId, username, token]);
+  }, [storedUserId, storedToken]);
 
   const favoriteMovieIds = profile?.FavoriteMovies ?? [];
 
@@ -49,33 +45,40 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
     const payload = {};
 
-    if (username !== profile.Username) {
-      payload.Username = username;
-    }
+    const nextUsername = username.trim();
+    const nextEmail = email.trim();
+    const nextBirthday = birthday ? String(birthday).slice(0, 10) : "";
 
-    if (email !== profile.Email) {
-      payload.Email = email;
-    }
+    const curUsername = (profile.Username ?? "").trim();
+    const curEmail = (profile.Email ?? "").trim();
+    const curBirthday = profile.Birthday ? String(profile.Birthday).slice(0, 10) : "";
 
-    if (birthday !== profile.Birthday) {
-      payload.Birthday = birthday;
-    }
+    if (nextUsername && nextUsername !== curUsername) payload.Username = nextUsername;
+    if (nextEmail && nextEmail !== curEmail) payload.Email = nextEmail;
+    if (nextBirthday && nextBirthday !== curBirthday) payload.Birthday = nextBirthday;
 
-    if (currentPassword) {
-      payload.CurrentPassword = currentPassword;
-    }
-
-    if (newPassword) {
-      payload.NewPassword = newPassword;
-    }
+    if (currentPassword) payload.CurrentPassword = currentPassword;
+    if (newPassword) payload.NewPassword = newPassword;
 
     if (!payload.CurrentPassword) {
       setInfo("Enter current password.");
       return;
     }
 
+    const changeKeys = Object.keys(payload).filter((k) => k !== "CurrentPassword");
 
-    fetch(`${API_BASE}/users/${encodeURIComponent(userId)}`, {
+    if (changeKeys.length === 0) {
+      setInfo("No changes to save.");
+      return;
+    }
+
+    if (payload.NewPassword && payload.NewPassword.length < 8) {
+      setError("New password must be at least 8 characters.");
+      return;
+    }
+
+
+    fetch(`${API_BASE}/users/${encodeURIComponent(storedUserId)}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${storedToken}`,
@@ -91,6 +94,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
             alert(data.errors[0].msg);
           } else {
             alert("Update failed.");
+            console.log(res);
           }
         throw new Error("Request failed");
         }
@@ -99,6 +103,9 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       })
       .then((updated) => {
         setProfile(updated);
+        setUsername("");
+        setEmail("");
+        setBirthday("");
         setNewPassword("");
         setCurrentPassword("");
         setInfo("Profile updated.");
@@ -113,7 +120,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
     try {
       const res = await fetch(
-        `${API_BASE}/users/${encodeURIComponent(userId)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
+        `${API_BASE}/users/${encodeURIComponent(storedUserId)}/FavoriteMovies/${encodeURIComponent(movieId)}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${storedToken}` },
@@ -151,27 +158,27 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
           <Form onSubmit={handleUpdate} className="mb-4">
             <Form.Group className="mb-2">
               <Form.Label>Enter new user name</Form.Label>
-              <Form.Control type="text" onChange={(e) => setUsername(e.target.value)} />
+              <Form.Control type="text" value={username} minLength="3" onChange={(e) => setUsername(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-2">
               <Form.Label>Enter new email address</Form.Label>
-              <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} />
+              <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-2">
               <Form.Label>Enter new birthday</Form.Label>
-              <Form.Control type="date" onChange={(e) => setBirthday(e.target.value)} />
+              <Form.Control type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Enter current password (required for any & all updates)</Form.Label>
-              <Form.Control type="password" minLength="8" onChange={(e) => setCurrentPassword(e.target.value)} />
+              <Form.Control type="password" value={currentPassword} minLength="8" onChange={(e) => setCurrentPassword(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Enter new password (optional)</Form.Label>
-              <Form.Control type="password" minLength="8" onChange={(e) => setNewPassword(e.target.value)} />
+              <Form.Control type="password" value={newPassword} minLength="8" onChange={(e) => setNewPassword(e.target.value)} />
             </Form.Group>
 
             <Button type="submit">Save changes</Button>
