@@ -84,9 +84,9 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       body: JSON.stringify(payload),
     })
       .then(async (res) => {
-        const data = await res.json().catch(() => null);
+        const data = await res.json();
 
-        if (!response.ok) {      
+        if (!res.ok) {      
           if (data.errors && data.errors.length > 0) {
             alert(data.errors[0].msg);
           } else {
@@ -165,7 +165,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Current Password password (required for any & all updates)</Form.Label>
+              <Form.Label>Current Password (required for any & all updates)</Form.Label>
               <Form.Control type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
             </Form.Group>
 
