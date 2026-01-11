@@ -166,12 +166,12 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
             <Form.Group className="mb-3">
               <Form.Label>Current Password (required for any & all updates)</Form.Label>
-              <Form.Control type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+              <Form.Control type="password" value={currentPassword} minLength="8" onChange={(e) => setCurrentPassword(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>New password (optional)</Form.Label>
-              <Form.Control type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+              <Form.Control type="password" value={newPassword} minLength="8" onChange={(e) => setNewPassword(e.target.value)} />
             </Form.Group>
 
             <Button type="submit">Save changes</Button>
