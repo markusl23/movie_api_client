@@ -18,7 +18,8 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [password, setPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     if (!userId || !token) return;
@@ -60,8 +61,12 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       payload.Birthday = birthday;
     }
 
-    if (password) {
-      payload.Password = password;
+    if (currentPassword) {
+      payload.CurrentPassword = currentPassword;
+    }
+
+    if (newPassword) {
+      payload.NewPassword = newPassword;
     }
 
     if (Object.keys(payload).length === 0) {
@@ -96,7 +101,8 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       })
       .then((updated) => {
         setProfile(updated);
-        setPassword("");
+        setNewPassword("");
+        setCurrentPassword("");
         setInfo("Profile updated.");
         onUserUpdated?.(updated);
       })
@@ -161,8 +167,13 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
             </Form.Group>
 
             <Form.Group className="mb-3">
+              <Form.Label>Current Password password (required for any & all updates)</Form.Label>
+              <Form.Control type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
               <Form.Label>New password (optional)</Form.Label>
-              <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Form.Control type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
             </Form.Group>
 
             <Button type="submit">Save changes</Button>
