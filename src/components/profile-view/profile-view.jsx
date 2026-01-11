@@ -70,7 +70,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
     }
 
     if (!payload.CurrentPassword) {
-      setInfo("No changes to save.");
+      setInfo("Enter current password.");
       return;
     }
 
