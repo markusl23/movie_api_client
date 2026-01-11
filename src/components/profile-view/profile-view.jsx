@@ -70,7 +70,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       payload.NewPassword = newPassword;
     }
 
-    if (Object.keys(payload).length === 0) {
+    if (!payload.CurrentPassword) {
       setInfo("No changes to save.");
       return;
     }
@@ -151,28 +151,28 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
           <h3>Update profile</h3>
           <Form onSubmit={handleUpdate} className="mb-4">
             <Form.Group className="mb-2">
-              <Form.Label>User name</Form.Label>
-              <Form.Control type="text" placeholder="enter new user name" onChange={(e) => setUsername(e.target.value)} />
+              <Form.Label>Enter new user name</Form.Label>
+              <Form.Control type="text" onChange={(e) => setUsername(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-2">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="enter new email address" onChange={(e) => setEmail(e.target.value)} />
+              <Form.Label>Enter new email address</Form.Label>
+              <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-2">
-              <Form.Label>Birthday</Form.Label>
-              <Form.Control type="text" placeholder="enter new birthday" onChange={(e) => setBirthday(e.target.value)} onFocus={(e) => (e.target.type = "date")} onBlur={(e) => (e.target.type = value ? "date" : "text")} />
+              <Form.Label>Enter new birthday</Form.Label>
+              <Form.Control type="date" onChange={(e) => setBirthday(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Current Password (required for any & all updates)</Form.Label>
-              <Form.Control type="password" placeholder="enter current password" value={currentPassword} minLength="8" onChange={(e) => setCurrentPassword(e.target.value)} />
+              <Form.Label>Enter current Password (required for any & all updates)</Form.Label>
+              <Form.Control type="password" minLength="8" onChange={(e) => setCurrentPassword(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>New password (optional)</Form.Label>
-              <Form.Control type="password" placeholder="enter new password" value={newPassword} minLength="8" onChange={(e) => setNewPassword(e.target.value)} />
+              <Form.Label>Enter new password (optional)</Form.Label>
+              <Form.Control type="password" minLength="8" onChange={(e) => setNewPassword(e.target.value)} />
             </Form.Group>
 
             <Button type="submit">Save changes</Button>
