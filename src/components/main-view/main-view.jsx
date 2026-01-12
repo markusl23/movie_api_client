@@ -6,6 +6,7 @@ import { SignupView } from '../signup-view/signup-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { ProfileView } from '../profile-view/profile-view';
 import { RequireAuth } from '../require-auth/require-auth';
+import { LoginRoute } from '../login-route/login-route';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
