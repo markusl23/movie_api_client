@@ -7,6 +7,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const handleSubmit = (event) => {
   	event.preventDefault();
 
@@ -29,6 +33,7 @@ export const LoginView = ({ onLoggedIn }) => {
   	  	  localStorage.setItem("user", JSON.stringify(data.username));
   	  	  localStorage.setItem("token", data.token);
   	  	  onLoggedIn(data.userid, data.username, data.token);
+          navigate(from, { replace: true });
   	  	} else {
   	  	  alert("Enter correct username/password.");
   	  	}
