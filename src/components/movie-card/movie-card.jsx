@@ -9,7 +9,14 @@ export const MovieCard =({ movie }) => {
   return (
     <Card
       className="h-100"
-      onClick={() => navigate(`/movies/${encodeURIComponent(movie.id)}`)}
+      onClick={() => {
+        navigate(`/movies/${encodeURIComponent(movie.id)}`);
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
+      }}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
