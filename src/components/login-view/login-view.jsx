@@ -9,7 +9,9 @@ export const LoginView = ({ onLoggedIn }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname
+  ? location.state.from.pathname + (location.state.from.search || "")
+  : "/";
 
   const handleSubmit = (event) => {
   	event.preventDefault();
