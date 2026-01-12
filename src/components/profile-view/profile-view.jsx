@@ -29,7 +29,14 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       .then((data) => {
         setProfile(data);
       })
-      .catch(() => setError("Could not load profile."));
+      .catch(() => {
+        setError("Could not load profile."),
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
+      });
   }, [storedUserId, storedToken]);
 
   const favoriteMovieIds = profile?.FavoriteMovies ?? [];
@@ -62,6 +69,11 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
     if (!payload.CurrentPassword) {
       setInfo("Enter current password.");
+      window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+      });
       return;
     }
 
@@ -69,11 +81,21 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
     if (changeKeys.length === 0) {
       setInfo("No changes to save.");
+      window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+      });
       return;
     }
 
     if (payload.NewPassword && payload.NewPassword.length < 8) {
       setError("New password must be at least 8 characters.");
+      window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+      });
       return;
     }
 
@@ -106,9 +128,21 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         setNewPassword("");
         setCurrentPassword("");
         setInfo("Profile updated.");
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
         onUserUpdated?.(updated);
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        setError(err.message);
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
+      });
   };
 
   const handleRemoveFavorite = async (movieId) => {
@@ -131,6 +165,11 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
       onUserUpdated?.(updatedUser);
     } catch {
       setError("Could not remove favorite.");
+      window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+      });
     }
   };
 
