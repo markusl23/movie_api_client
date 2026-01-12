@@ -138,30 +138,24 @@ export const MainView = () => {
               </RequireAuth>
             }
           />
-
           <Route
             path="/"
             element={
-            <>
-                {!token ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
+              <RequireAuth token={token}>
+                {movies.length === 0 ? (
                   <Row className="justify-content-md-center">
                     <Col>The movies list is empty!</Col>
                   </Row>
                 ) : (
-                  <>
-                    <Row>
-                      {movies.map((movie) => (                      
-                        <Col key={movie.id} className="mb-4" md={3}>
-                          <MovieCard movie={movie} />
-                        </Col>                      
-                      ))}
-                    </Row>
-                  </>
-                )
-            }
-              </>
+                  <Row>
+                    {movies.map((movie) => (
+                      <Col key={movie.id} className="mb-4" md={3}>
+                        <MovieCard movie={movie} />
+                      </Col>
+                    ))}
+                  </Row>
+                )}
+              </RequireAuth>
             }
           />
           <Route
