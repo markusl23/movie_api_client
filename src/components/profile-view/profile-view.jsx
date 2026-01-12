@@ -90,12 +90,10 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         const data = await res.json();
 
         if (!res.ok) {      
-          if (data.errors && data.errors.length > 0) {
-            setError(data.errors[0].msg);
-          } else {
-            setError("Update failed.");
-          }
-        throw new Error("Request failed");
+          const msg =
+            data?.errors?.[0]?.msg ||
+            "Update failed.";
+            throw new Error(msg);
         }
 
       return data;
@@ -110,7 +108,7 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
         setInfo("Profile updated.");
         onUserUpdated?.(updated);
       })
-      .catch(() => setError("Update failed."));
+      .catch((err) => setError(err.message));
   };
 
   const handleRemoveFavorite = async (movieId) => {
