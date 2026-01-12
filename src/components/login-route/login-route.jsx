@@ -1,4 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { LoginView } from '../login-view/login-view';
 
 export const LoginRoute = ({ token, onLoggedIn }) => {
   const location = useLocation();
