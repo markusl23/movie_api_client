@@ -101,23 +101,7 @@ export const MainView = () => {
           <Route
             path="/movies"
             element={
-              <>
-                {token ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Row className="justify-content-md-center">
-                    <Col md={5}>
-                      <h2>Existing user login:</h2>
-                      <LoginView onLoggedIn={(userId, user, token) => {
-                        setUserId(userId);
-                        setUser(user);
-                        setToken(token);
-                      }}
-                      />
-                    </Col>
-                  </Row>
-                )}
-              </>
+              <Navigate to="/" replace />
             }
           />
           <Route
