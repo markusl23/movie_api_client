@@ -19,6 +19,22 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
+  async function readBody(res) {
+  const contentType = res.headers.get("content-type") || "";
+  const raw = await res.text();
+
+  if (contentType.includes("application/json")) {
+    try {
+      return { kind: "json", data: raw ? JSON.parse(raw) : null, raw };
+    } catch {
+      return { kind: "text", data: null, raw };
+    }
+  }
+
+  return { kind: "text", data: null, raw };
+  }
+
+
   useEffect(() => {
     if (!storedUserId || !storedToken) return;
 
@@ -45,13 +61,12 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
     return movies.filter((m) => favoriteMovieIds.includes(m.id));
   }, [movies, favoriteMovieIds]);
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     setError(null);
     setInfo(null);
 
     const payload = {};
-
     const nextUsername = username.trim();
     const nextEmail = email.trim();
     const nextBirthday = birthday ? String(birthday).slice(0, 10) : "";
@@ -69,80 +84,66 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
     if (!payload.CurrentPassword) {
       setInfo("Enter current password.");
-      window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       return;
     }
 
     const changeKeys = Object.keys(payload).filter((k) => k !== "CurrentPassword");
-
     if (changeKeys.length === 0) {
       setInfo("No changes to save.");
-      window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       return;
     }
 
     if (payload.NewPassword && payload.NewPassword.length < 8) {
       setError("New password must be at least 8 characters.");
-      window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       return;
     }
 
-
-    fetch(`${API_BASE}/users/${encodeURIComponent(storedUserId)}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${storedToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-
-        if (!res.ok) {      
-          const msg =
-            data?.errors?.[0]?.msg ||
-            "Update failed.";
-            throw new Error(msg);
-        }
-
-      return data;
-      })
-      .then((updated) => {
-        setProfile(updated);
-        setUsername("");
-        setEmail("");
-        setBirthday("");
-        setNewPassword("");
-        setCurrentPassword("");
-        setInfo("Profile updated.");
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-        });
-        onUserUpdated?.(updated);
-      })
-      .catch((err) => {
-        setError(err.message);
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-        });
+    try {
+      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(storedUserId)}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
+
+      const { kind, data, raw } = await readBody(res);
+
+      if (!res.ok) {
+        const msg =
+          data?.errors?.[0]?.msg ||
+          data?.message ||
+          data?.error ||
+          raw ||
+          `Request failed (${res.status} ${res.statusText})`;
+
+        throw new Error(msg);
+      }
+
+      const updated = kind === "json" ? data : null;
+
+      if (!updated) {
+        throw new Error("Update succeeded but server returned no JSON body.");
+      }
+
+      setProfile(updated);
+      setUsername("");
+      setEmail("");
+      setBirthday("");
+      setNewPassword("");
+      setCurrentPassword("");
+      setInfo("Profile updated.");
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      onUserUpdated?.(updated);
+
+    } catch (err) {
+      setError(err.message || "Update failed.");
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
   };
 
   const handleRemoveFavorite = async (movieId) => {
