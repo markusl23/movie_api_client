@@ -91,9 +91,9 @@ export const ProfileView = ({ storedUserId, storedUser, storedToken, movies, onU
 
         if (!res.ok) {      
           if (data.errors && data.errors.length > 0) {
-            alert(data.errors[0].msg);
+            setError(data.errors[0].msg);
           } else {
-            alert("Update failed.");
+            setError("Update failed.");
             console.log(res);
           }
         throw new Error("Request failed");
