@@ -36,7 +36,7 @@ export const LoginView = ({ onLoggedIn }) => {
   	  	  localStorage.setItem("token", data.token);
   	  	  onLoggedIn(data.userid, data.username, data.token);
   	  	} else {
-  	  	  alert("Enter correct username/password.");
+  	  	  alert("Enter correct username/password, only alpha-numeric characters allowed for user names.");
   	  	}
   	  })
   	  .catch((e) => {
