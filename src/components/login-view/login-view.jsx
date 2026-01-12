@@ -35,7 +35,6 @@ export const LoginView = ({ onLoggedIn }) => {
   	  	  localStorage.setItem("user", JSON.stringify(data.username));
   	  	  localStorage.setItem("token", data.token);
   	  	  onLoggedIn(data.userid, data.username, data.token);
-          navigate(from, { replace: true });
   	  	} else {
   	  	  alert("Enter correct username/password.");
   	  	}
