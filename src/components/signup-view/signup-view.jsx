@@ -26,12 +26,14 @@ export const SignupView = () => {
   		headers: {
   		  "Content-Type": "application/json"
   		}
-  	}).then((response) => {
+  	}).then(async (response) => {
   	  if (response.ok) {
   	  	alert("Registration successful!");
   	  	navigate("/login");
   	  } else {
-  	  	alert(`Registration failed, please use a different username and/or email.`);
+  	  	const raw = await response.text();
+        const data = JSON.parse(raw);
+        alert(data.errors[0].msg);
   	  }
   	});
   };
