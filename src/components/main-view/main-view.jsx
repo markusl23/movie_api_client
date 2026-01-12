@@ -123,10 +123,8 @@ export const MainView = () => {
           <Route
             path="/movies/:movieId"
             element={
-              <>
-                {!token ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
+              <RequireAuth token={token}>
+                {movies.length === 0 ? (
                   <Row className="justify-content-md-center">
                     <Col>The movies list is empty!</Col>
                   </Row>
@@ -137,9 +135,10 @@ export const MainView = () => {
                     </Col>
                   </Row>
                 )}
-              </>
+              </RequireAuth>
             }
           />
+
           <Route
             path="/"
             element={
