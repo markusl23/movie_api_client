@@ -168,9 +168,7 @@ export const MainView = () => {
           <Route
             path="/profile"
             element={
-              !token || !userId ? (
-                <Navigate to="/login" replace />
-              ) : (
+              <RequireAuth token={token}>
                 <ProfileView
                   storedUserId={userId}
                   storedUser={user}
@@ -182,15 +180,16 @@ export const MainView = () => {
                     localStorage.setItem("userid", updatedUser._id ?? userId);
                   }}
                   onLoggedOut={() => {
-                  setUserId(null);
-                  setUser(null);
-                  setToken(null);
-                  localStorage.clear();
+                    setUserId(null);
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
                   }}
-                />            
-              )
+                />
+              </RequireAuth>
             }
           />
+
         </Routes>
       </Container>
   </BrowserRouter>
